@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "../../ui/card";
 import { Heading } from "../../ui/Headding";
-import { UploadForm } from "../videoManagement/UploadForm";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload"; // Import the upload icon
-import { VideoControls } from "../videoManagement/VideoControls.jsx";
-import { VideoTable } from "../videoManagement/VideoTable.jsx";
+import { VideoControls } from "./VideoControls";
+import { VideoTable } from "./VideoTable";
+import { UploadForm } from "./UploadForm";
 import useVideoStore from "../../store/videoStore";
 
 export const VideoManagement = () => {
