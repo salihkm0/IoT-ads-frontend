@@ -234,6 +234,10 @@ const uploadVideo = async (formData, onUploadProgress) => {
         toast.success("Video uploaded successfully");
         fetchVideos();
       }
+      else{
+        toast.error("Failed to upload video");
+        console.log("error uploading video :" , response.data);
+      }
     } catch (error) {
       console.error("Error uploading video:", error);
       toast.error("Failed to upload video");
