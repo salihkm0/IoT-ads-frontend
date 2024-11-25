@@ -40,7 +40,7 @@
 //       set({ isLoading: true });
 //       const response = await axios.get(`${baseURL}/rpi`);
 //       console.log("rpi response :" , response);
-      
+
 //       set({ rpis: response.data });
 //     } catch (error) {
 //       console.error('Error fetching RPis:', error);
@@ -118,13 +118,12 @@
 
 // export default useClientStore;
 
-
 import { create } from "zustand";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-// const baseURL = "https://iot-ads-display.onrender.com/api";
-const baseURL = "http://localhost:5557/api";
+const baseURL = "https://iot-ads-display.onrender.com/api";
+// const baseURL = "http://localhost:5557/api";
 
 // Create reusable axios instance with Authorization header
 const axiosInstance = axios.create({
@@ -135,29 +134,32 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(
-    (config) => {
-      const token = localStorage.getItem("token");
-      config.headers.Authorization = token ? `Bearer ${token}` : "";
-      return config;
-    },
-    (error) => Promise.reject(error)
-  );
-  
+  (config) => {
+    const token = localStorage.getItem("token");
+    config.headers.Authorization = token ? `Bearer ${token}` : "";
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 const useClientStore = create((set) => ({
   rpis: [],
   isLoading: false,
 
   // Action to create a new RPi
-  createRpi: async (rpiData) => {
+  createRpi: async (formData) => {
     try {
       set({ isLoading: true });
-      const response = await axiosInstance.post("/rpi", rpiData);
+      const response = await axiosInstance.post("/rpi", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (response.status === 201) {
         toast.success("RPI created successfully");
         set((state) => ({
-          rpis: [...state.rpis, response.data],
+          rpis: [...state.rpis, response.data.rpis],
         }));
       }
     } catch (error) {

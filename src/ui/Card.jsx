@@ -205,7 +205,7 @@ export const Card = ({ video }) => {
           className="rounded-md bg-slate-800 py-2 px-4 text-center text-sm text-white shadow-md hover:bg-slate-700 transition"
           type="button"
         >
-          Details
+          Edit
         </button>
         <button
           className={`rounded-md py-2 px-4 text-center text-sm text-white shadow-md transition ${

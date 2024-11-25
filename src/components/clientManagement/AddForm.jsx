@@ -158,12 +158,46 @@ export const ClientAddForm = ({ onClose, createRpi }) => {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
+    const {
+      rpi_id,
+      rpi_name,
+      vehicle_no,
+      owner_name,
+      owner_phone,
+      location,
+      wifi_ssid,
+      wifi_password,
+    } = data;
+
+    // console.log("data: " + JSON.stringify(data));
+    if (
+      !rpi_id ||
+      !rpi_name ||
+      !vehicle_no ||
+      !owner_name ||
+      !owner_phone ||
+      !location
+    ) {
+      toast.success(
+        "Please Fill required Fields. RPI Id,RPI Name,Vehicle Number,Owner Name,Owner Phone,Location"
+      );
+    }
+    const formData = new FormData();
+    formData.append("rpi_id", rpi_id);
+    formData.append("rpi_name", rpi_name);
+    formData.append("vehicle_no", vehicle_no);
+    formData.append("owner_name", owner_name);
+    formData.append("owner_phone", owner_phone);
+    formData.append("location", location);
+    formData.append("wifi_ssid", wifi_ssid);
+    formData.append("wifi_password", wifi_password);
     try {
-      console.log("Submitting RPI Data:", data);
-      await createRpi(data); // Call the createRpi function
-      toast.success("Client added successfully!");
-      reset(); // Reset the form
-      onClose(); // Close the modal
+      // for (let [key, value] of formData.entries()) {
+      //   console.log(`${key}: ${value}`);
+      // }      
+      await createRpi(formData);
+      reset();
+      // onClose();
     } catch (error) {
       console.error("Error adding client:", error);
       toast.error("Failed to add client.");
@@ -195,6 +229,12 @@ export const ClientAddForm = ({ onClose, createRpi }) => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Input Fields */}
           {[
+            {
+              label: "RPI Id",
+              name: "rpi_id",
+              placeholder: "Enter RPI Id",
+              required: true,
+            },
             {
               label: "RPI Name",
               name: "rpi_name",
@@ -257,7 +297,7 @@ export const ClientAddForm = ({ onClose, createRpi }) => {
           ))}
 
           {/* Status */}
-          <div>
+          {/* <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Status
             </label>
@@ -266,9 +306,9 @@ export const ClientAddForm = ({ onClose, createRpi }) => {
               className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
             >
               <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+              <option value="in_active">Inactive</option>
             </select>
-          </div>
+          </div> */}
 
           {/* Submit Button */}
           <button

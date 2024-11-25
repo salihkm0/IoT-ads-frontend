@@ -80,6 +80,7 @@
 import {create} from 'zustand';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { jwtDecode } from 'jwt-decode';
 
 const baseURL = 'https://iot-ads-display.onrender.com/api';
 
@@ -87,6 +88,20 @@ const useAuthStore = create((set) => ({
   user: JSON.parse(localStorage.getItem('user')) || null,
   token: localStorage.getItem('token') || null,
   isAuthenticated: localStorage.getItem('token') ? true : false,
+
+  isTokenExpired: () => {
+    const token = localStorage.getItem("token");
+    if (!token) return true;
+
+    try {
+      const decoded = jwtDecode(token);
+      const currentTime = Date.now() / 1000; 
+      return decoded.exp < currentTime;
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return true;
+    }
+  },
 
   // Action to register a user
   register: async (username, password, email) => {
@@ -126,7 +141,10 @@ const useAuthStore = create((set) => ({
 
         toast.success('Login successful');
         return response.data;
+      }else{
+        toast.error('Invalid credentials');
       }
+
     } catch (error) {
       console.error('Login failed:', error);
       toast.error('Failed to login');
@@ -156,7 +174,7 @@ const useAuthStore = create((set) => ({
     localStorage.removeItem('token');
     
     set({ user: null, token: null, isAuthenticated: false });
-    toast.success('Logged out');
+    // toast.success('Logged out');
   },
 }));
 

@@ -136,7 +136,7 @@ export const Navbar = () => {
           </Link>
           <Link to="/client-management" className="flex items-center text-white hover:text-blue-400 transition-all">
             <FaUsers className="mr-2 text-2xl" />
-            Client Management
+            User Management
           </Link>
           <Link to="/profile" className="flex items-center text-white hover:text-blue-400 transition-all">
             <Person className="mr-2" />

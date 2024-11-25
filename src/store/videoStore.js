@@ -189,18 +189,47 @@ const useVideoStore = create((set) => {
   };
 
   // Upload video
-  const uploadVideo = async (formData) => {
+//   const uploadVideo = async (formData) => {
+//     try {
+//       set({ isUploading: true });
+
+//       const response = await axiosInstance.post("/upload", formData, {
+//         headers: {
+//           "Content-Type": "multipart/form-data",
+//         },
+//       });
+
+//       console.log("response : ", response);
+
+//       if (response.data.success) {
+//         toast.success("Video uploaded successfully");
+//         fetchVideos();
+//       }
+//     } catch (error) {
+//       console.error("Error uploading video:", error);
+//       toast.error("Failed to upload video");
+//     } finally {
+//       set({ isUploading: false, uploadProgress: 0 });
+//     }
+//   };
+
+const uploadVideo = async (formData, onUploadProgress) => {
     try {
       set({ isUploading: true });
-
+  
       const response = await axiosInstance.post("/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        onUploadProgress: (progressEvent) => {
+          // Calculate progress percentage
+          const progress = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          onUploadProgress(progress);
+        },
       });
-
-      console.log("response : ", response);
-
+  
       if (response.data.success) {
         toast.success("Video uploaded successfully");
         fetchVideos();
@@ -212,6 +241,9 @@ const useVideoStore = create((set) => {
       set({ isUploading: false, uploadProgress: 0 });
     }
   };
+  
+
+
 
   // Update video
   const updateVideo = async (id, filename, description, expiryDate, brand) => {
@@ -236,7 +268,6 @@ const useVideoStore = create((set) => {
   return {
     videos: [],
     isUploading: false,
-    uploadProgress: 0,
     fetchVideos,
     fetchVideoByFilename,
     deleteVideo,

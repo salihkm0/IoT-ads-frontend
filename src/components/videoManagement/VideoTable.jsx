@@ -81,7 +81,7 @@ export const VideoTable = ({ videos }) => {
               <td className="border px-4 py-2 text-gray-800">{video.filename}</td>
               <td className="border px-4 py-2 text-gray-800">{video.brand}</td>
               <td className="border px-4 py-2 text-gray-800">{video.expiredDate}</td>
-              <td className="px-4 py-3">
+              <td className="border px-4 py-3">
                 <span
                   className={`text-sm font-semibold ${
                     video.status === "active" ? "text-green-600" : "text-red-600"
@@ -92,12 +92,12 @@ export const VideoTable = ({ videos }) => {
               </td>
               <td className="px-4 py-3 flex gap-2">
                 {/* View Details Button */}
-                <button
+                {/* <button
                   className="text-blue-500 hover:text-blue-700 transition-colors"
                   title="View Details"
                 >
                   <InfoIcon />
-                </button>
+                </button> */}
                 {/* Edit Button */}
                 <button
                   className="text-yellow-500 hover:text-yellow-700 transition-colors"
