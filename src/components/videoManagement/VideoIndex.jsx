@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "../../ui/card";
+
 import { Heading } from "../../ui/Headding";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload"; // Import the upload icon
 import { VideoControls } from "./VideoControls";
 import { VideoTable } from "./VideoTable";
 import { UploadForm } from "./UploadForm";
 import useVideoStore from "../../store/videoStore";
+import { Card } from "../../ui/card";
 
 export const VideoManagement = () => {
   const [isUploadFormOpen, setIsUploadFormOpen] = useState(false);
