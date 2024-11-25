@@ -6,7 +6,7 @@ import { VideoControls } from "./VideoControls";
 import { VideoTable } from "./VideoTable";
 import { UploadForm } from "./UploadForm";
 import useVideoStore from "../../store/videoStore";
-import { Card } from "../../ui/card";
+import { Card } from "../../ui/Card";
 
 export const VideoManagement = () => {
   const [isUploadFormOpen, setIsUploadFormOpen] = useState(false);
@@ -76,61 +76,3 @@ export const VideoManagement = () => {
     </>
   );
 };
-
-// import React, { useEffect, useState } from "react";
-// import { Card } from "../../ui/card";
-// import { Heading } from "../../ui/Headding";
-// import { UploadForm } from "../videoManagement/UploadForm";
-// import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-// import { VideoControls } from "../videoManagement/VideoControls.jsx";
-// import useVideoStore from "../../store/videoStore";
-
-// export const VideoManagement = () => {
-//   const [isUploadFormOpen, setIsUploadFormOpen] = useState(false);
-//   const [searchQuery, setSearchQuery] = useState("");
-//   const [sortOption, setSortOption] = useState("newest");
-
-//   const { videos, fetchVideos, getSortedVideos } = useVideoStore();
-
-//   useEffect(() => {
-//     fetchVideos();
-//   }, [fetchVideos]);
-
-//   const filteredVideos = getSortedVideos(
-//     videos.filter((video) =>
-//       video.filename.toLowerCase().includes(searchQuery.toLowerCase())
-//     ),
-//     sortOption
-//   );
-
-//   return (
-//     <>
-//       <div>
-//         <div className="flex justify-between items-center">
-//           <Heading>Ads Video Management</Heading>
-//           <button
-//             onClick={() => setIsUploadFormOpen(true)}
-//             className="flex items-center gap-1 bg-gradient-to-r from-blue-500 to-indigo-600 py-1.5 px-3 text-white rounded-md shadow-md hover:from-blue-600 hover:to-indigo-700"
-//           >
-//             <CloudUploadIcon />
-//             Upload
-//           </button>
-//         </div>
-//         <VideoControls
-//           searchQuery={searchQuery}
-//           setSearchQuery={setSearchQuery}
-//           sortOption={sortOption}
-//           setSortOption={setSortOption}
-//         />
-//       </div>
-//       <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-//         {filteredVideos.map((video) => (
-//           <Card key={video.id} video={video} />
-//         ))}
-//       </div>
-//       {isUploadFormOpen && (
-//         <UploadForm onClose={() => setIsUploadFormOpen(false)} />
-//       )}
-//     </>
-//   );
-// };
