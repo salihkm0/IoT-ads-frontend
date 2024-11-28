@@ -212,7 +212,8 @@ export const ClientCard = ({ client, onDelete, onEdit }) => {
             <strong>Status:</strong>
             <span
               style={{
-                color: client.rpi_status === "active" ? "green" : "red",marginLeft : "5px"
+                color: client.rpi_status === "active" ? "green" : "red",
+                marginLeft: "5px",
               }}
             >
               {client.rpi_status === "active" ? "Active" : "In Active"}
@@ -220,8 +221,17 @@ export const ClientCard = ({ client, onDelete, onEdit }) => {
           </Typography>
 
           <Typography variant="body2" color="textSecondary" className="mt-1">
-            <strong>Created At:</strong>
-            {new Date(client.createdAt).toLocaleDateString()}
+            <strong>Updated At:</strong>
+            {new Date(client.updatedAt).toLocaleString("en-US", {
+              // weekday: "short",
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+              hour12: false,
+            })}
           </Typography>
         </div>
 

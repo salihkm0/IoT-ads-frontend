@@ -113,19 +113,9 @@ export const ClientManagement = () => {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("");
-  const [loading, setLoading] = useState(true);
-  const { fetchAllRpis, rpis, createRpi } = useClientStore();
+  const [loading, setLoading] = useState(false);
+  const { rpis, createRpi } = useClientStore();
   const [view, setView] = useState("card"); // default view is card
-
-  // Fetch clients on component mount
-  useEffect(() => {
-    const fetchClients = async () => {
-      setLoading(true);
-      await fetchAllRpis();
-      setLoading(false);
-    };
-    fetchClients();
-  }, [fetchAllRpis]);
 
   // Filter clients based on search query
   const filteredClients = rpis.filter((client) =>
@@ -189,7 +179,7 @@ export const ClientManagement = () => {
         ) : (
           <>
             {view === "card" ? (
-              <div className="flex flex-wrap justify-start">
+              <div className="flex flex-wrap justify-center">
                 {sortedClients().map((client) => (
                   <ClientCard key={client.id} client={client} />
                 ))}
