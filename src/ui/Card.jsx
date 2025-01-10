@@ -1,18 +1,58 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import CircularProgress from "@mui/material/CircularProgress"; // Material-UI Spinner
+import CircularProgress from "@mui/material/CircularProgress";
+import VideoEditForm from "../components/videoManagement/VideoEdit.jsx";
 import useVideoStore from "../store/videoStore";
+import axios from "axios";
+import useBrandStore from "../store/brandStore.js";
 
 export const Card = ({ video }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
+  const [calculatedStatus, setCalculatedStatus] = useState("active");
+  const [brandName, setBrandName] = useState("");
   const videoRef = useRef(null);
-  const { deleteVideo } = useVideoStore()
-  const { filename, description, fileUrl, status,_id } = video;
+  const { deleteVideo } = useVideoStore();
+  const { getBrandName } = useBrandStore();
+  const { filename, description, brand, fileUrl, expiryDate, _id } = video;
+
+  // Fetch brand name based on brand ID
+  useEffect(() => {
+    const fetchBrandName = async () => {
+      if (!video.brand) return;
+      try {
+        const name = await getBrandName(video.brand);
+        setBrandName(name);
+      } catch (error) {
+        console.error("Error fetching brand name:", error);
+      }
+    };
+
+    fetchBrandName();
+  }, [video.brand, getBrandName]);
+
+  // Real-time status update
+  useEffect(() => {
+    const updateStatus = () => {
+      const now = new Date();
+      const isExpired = expiryDate && new Date(expiryDate) < now;
+      setCalculatedStatus(isExpired ? "expired" : "active");
+    };
+
+    // Update status initially
+    updateStatus();
+
+    // Check status every second
+    const interval = setInterval(updateStatus, 1000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+  }, [expiryDate]);
 
   const handlePlayPause = () => {
     if (isPlaying) {
@@ -75,20 +115,23 @@ export const Card = ({ video }) => {
       </div>
 
       {/* Card Content */}
-      <div className="px-4">
+      <div className="px-4 ">
+        <p className="text-slate-600 text-sm mb-1 font-[600] text-gray-400 ">
+          {brandName ? brandName : "Brand Not Available"}
+        </p>
         <div className="flex justify-between items-center">
-          <h6 className="mb-2 text-slate-800 text-lg font-semibold">
+          <h6 className="mb-1 text-slate-800 text-xl font-semibold">
             {filename}
           </h6>
           <p
             className={`text-sm mb-4 ${
-              status === "active" ? "text-green-500" : "text-red-500"
+              calculatedStatus === "active" ? "text-green-500" : "text-red-500"
             }`}
           >
-            {status}
+            {calculatedStatus}
           </p>
         </div>
-        <p className="text-slate-600 text-sm mb-4">{description}</p>
+        <p className="text-slate-600 text-sm mb-1 leading-1">{description}</p>
       </div>
 
       {/* Card Buttons */}
@@ -96,6 +139,7 @@ export const Card = ({ video }) => {
         <button
           className="rounded-md bg-slate-800 py-2 px-4 text-center text-sm text-white shadow-md hover:bg-slate-700 transition"
           type="button"
+          onClick={() => setIsEditFormOpen(true)}
         >
           Edit
         </button>
@@ -114,6 +158,10 @@ export const Card = ({ video }) => {
           )}
         </button>
       </div>
+      {/* Edit Form Modal */}
+      {isEditFormOpen && (
+        <VideoEditForm video={video} onClose={() => setIsEditFormOpen(false)} />
+      )}
     </div>
   );
 };

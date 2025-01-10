@@ -5,15 +5,18 @@ import { Container } from "../ui/Container";
 import { BottomBar } from "../components/navbar/Bottombar";
 import useVideoStore from "../store/videoStore"; // Import the video store
 import useClientStore from "../store/clientStore"; // Import the client store
+import useBrandStore from "../store/brandStore";
 
 const AdminLayout = () => {
   const { fetchVideos, videos } = useVideoStore();
   const { fetchAllRpis, rpis } = useClientStore();
+  const { fetchBrands, brands } = useBrandStore();
 
   useEffect(() => {
     fetchVideos();
     fetchAllRpis();
-  }, [fetchVideos, fetchAllRpis]);
+    fetchBrands();
+  }, [fetchVideos, fetchAllRpis, fetchBrands]);
 
   useEffect(() => {
     console.log("Videos fetched:", videos);
@@ -22,6 +25,10 @@ const AdminLayout = () => {
   useEffect(() => {
     console.log("RPIs fetched:", rpis);
   }, [rpis]);
+
+  useEffect(() => {
+    console.log("brands fetched:", brands);
+  }, [brands]);
 
   if (videos.length === 0 && rpis.length === 0) {
     return (

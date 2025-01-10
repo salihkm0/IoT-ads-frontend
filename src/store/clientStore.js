@@ -36,7 +36,7 @@ const useClientStore = create((set) => ({
         },
       });
 
-      if (response.status === 201) {
+      if (response.success) {
         toast.success("RPI created successfully");
         set((state) => ({
           rpis: [...state.rpis, response.data.rpis],

@@ -5,6 +5,7 @@ import { ClientPage } from "./pages/ClientPage";
 import { ProfilePage } from "./pages/Profile";
 import { LoginPage } from "./pages/LoginPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import { BrandPage } from "./pages/BrandPage";
 
 export const App = () => {
   return (
@@ -22,6 +23,7 @@ export const App = () => {
           <Route index element={<VideoPage />} />
           <Route path="video-management" element={<VideoPage />} />
           <Route path="client-management" element={<ClientPage />} />
+          <Route path="brand-management" element={<BrandPage />} />
           <Route path="profile" element={<ProfilePage />} />
         </Route>
       </Routes>
