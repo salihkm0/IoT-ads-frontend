@@ -2,8 +2,8 @@ import { create } from "zustand";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-const baseURL = "http://localhost:5557/api";
-// const baseURL = "https://iot-ads-display.onrender.com/api";
+// const baseURL = "http://localhost:5557/api";
+const baseURL = "https://iot-ads-display.onrender.com/api";
 
 // Create reusable axios instance
 const axiosInstance = axios.create({

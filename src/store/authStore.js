@@ -3,8 +3,8 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import {jwtDecode} from "jwt-decode";
 
-const apiBaseUrl = "http://localhost:5557/api";
-// const apiBaseUrl = "https://iot-ads-display.onrender.com/api"
+// const apiBaseUrl = "http://localhost:5557/api";
+const apiBaseUrl = "https://iot-ads-display.onrender.com/api"
 
 const useAuthStore = create((set, get) => ({
   user: JSON.parse(localStorage.getItem("user")) || null,

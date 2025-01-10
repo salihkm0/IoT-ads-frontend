@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const apiBaseUrl = "http://localhost:5557/api/brands";
-// const apiBaseUrl = "https://iot-ads-display.onrender.com/api/brands"
+// const apiBaseUrl = "http://localhost:5557/api/brands";
+const apiBaseUrl = "https://iot-ads-display.onrender.com/api/brands"
 
 const useBrandStore = create((set) => ({
   brands: [],
