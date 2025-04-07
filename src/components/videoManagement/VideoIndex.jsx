@@ -36,7 +36,7 @@ export const VideoManagement = () => {
           <Heading>Ads Video Management</Heading>
           <button
             onClick={() => setIsUploadFormOpen(true)}
-            className="flex items-center gap-1 rounded-md bg-gradient-to-r from-blue-500 to-indigo-600 py-1.5 px-3 text-center text-xs text-white shadow-md hover:from-blue-600 hover:to-indigo-700 transition"
+            className="flex items-center gap-1 rounded-md bg-gradient-to-r from-blue-500 to-indigo-600 py-1.5 px-3 text-center text-xs text-white shadow-md hover:from-blue-600 hover:to-indigo-700 transition mr-[10px] md:mr-[30px]"
           >
             <CloudUploadIcon className="text-white text-sm" />
             <span className="hidden sm:block">Upload</span>
