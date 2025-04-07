@@ -9,6 +9,7 @@ const baseURL = "https://iot-ads-display.onrender.com/api";
 const axiosInstance = axios.create({
   baseURL,
   headers: { "Content-Type": "application/json" },
+  withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(
