@@ -6,6 +6,7 @@ import { BottomBar } from "../components/navbar/Bottombar";
 import useVideoStore from "../store/videoStore"; // Import the video store
 import useClientStore from "../store/clientStore"; // Import the client store
 import useBrandStore from "../store/brandStore";
+import { Sidebar } from "../components/sidebar/Sidebar";
 
 const AdminLayout = () => {
   const { fetchVideos, videos } = useVideoStore();
@@ -44,9 +45,10 @@ const AdminLayout = () => {
   return (
     <>
       <Navbar />
-      <Container>
-        <Outlet />
-      </Container>
+        <Sidebar />
+        <Container>
+          <Outlet />
+        </Container>
       <BottomBar />
     </>
   );

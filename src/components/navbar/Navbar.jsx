@@ -114,8 +114,8 @@ export const Navbar = () => {
   return (
     <nav className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white fixed top-0 w-full z-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+        <div className="flex justify-between md:justify-center items-center h-16">
+          
           <div className="flex items-center">
             <Home className="text-3xl mr-2" />
             <Link to="/" className="text-2xl font-bold tracking-wide">
@@ -123,8 +123,8 @@ export const Navbar = () => {
             </Link>
           </div>
 
-          {/* Links for Larger Screens */}
-          <div className="hidden lg:flex space-x-8">
+          
+          {/* <div className="hidden lg:flex space-x-8">
             <Link
               to="/video-management"
               className="flex items-center text-white hover:text-gray-200 transition"
@@ -153,9 +153,9 @@ export const Navbar = () => {
               <Person className="mr-2" />
               Profile
             </Link>
-          </div>
+          </div> */}
 
-          {/* Mobile Menu Toggle */}
+          
           <div className="lg:hidden">
             <button
               onClick={toggleMenu}
